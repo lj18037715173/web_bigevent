@@ -2,8 +2,26 @@
 // ajaxPrefilter这个函数，在这个函数中 我们可以先拿到给ajax提供的配置对象
 
 // option 这个形参就是 当我们发起ajax请求时 传递给服务器的配置对象
-$.ajaxPrefilter(function(option) {
+$.ajaxPrefilter(function(options) {
     // console.log(option.url);
     // 在真正的发起ajax请求之前 把url地址拼接好
-    option.url = 'http://ajax.frontend.itheima.net' + option.url;
+    options.url = 'http://ajax.frontend.itheima.net' + options.url;
+
+    // 统一为有权限的接口 设置headers请求头
+    if (options.url.indexOf('/my/') !== -1) {
+        options.headers = {
+            Authorization: localStorage.getItem('token') || ''
+        }
+    };
+    // 统一挂载complete回调函数
+    options.complete = function(res) {
+        // 在complete回调函数中 可以使用res.responseJSON拿到服务器响应回来的数据
+        if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+            // 1、强制清空本地存储token
+            localStorage.removeItem('token');
+            // 2、让页面跳转回 登录页面
+            location.href = './login.html';
+            console.log(res.responseJSON);
+        }
+    }
 })
