@@ -1,0 +1,42 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 15px;
+    background-color: #f2f3f5;
+}
+
+
+/* 给表单设置宽度 */
+
+.layui-form {
+    width: 500px;
+}
+
+
+/* 让文章类别管理 和 按钮 靠左右两边对齐 */
+
+.layui-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* 设置添加弹出层的样式 */
+
+#form-add {
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+
+/* 设置编辑弹出层的样式 */
+
+#form-edit {
+    padding-top: 20px;
+    padding-right: 30px;
+}
